@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>クレジット | アルス・アルマル6周年記念</title>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Shippori Mincho', serif;
+      margin: 0;
+      padding: 0;
+      color: #fff;
+      /* 背景の調整 */
+      background: 
+        linear-gradient(rgba(0, 0, 20, 0.4), rgba(0, 0, 30, 0.4)), /* 既存のグラデーションの透明度を0.6から0.4に調整 */
+        linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), /* 薄い白色のフィルターを追加 (透明度0.1) */
+        url("img/nightsky01.png") no-repeat center center fixed;
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 60px 20px 120px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 32px;
+      color: #ffffff;
+      margin-bottom: 50px;
+      text-shadow: 0 0 10px #000;
+      width: 100%;
+    }
+
+    .section {
+      margin-bottom: 30px;
+      text-align: center;
+      width: 100%;
+    }
+
+    .role {
+      font-size: 24px;
+      color: #c7e0ff;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .name {
+      font-size: 16px;
+      color: #ffffff;
+      margin-bottom: 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .x-link {
+      color: #9ed0ff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      justify-content: center;
+    }
+
+    .x-link img {
+      width: 16px;
+      height: 16px;
+      vertical-align: middle;
+      filter: brightness(1.2);
+    }
+
+    .x-link:hover {
+      text-decoration: underline;
+    }
+
+    /* 既存のback-linkは残しつつ、新しいボタンを追加 */
+    .back-link {
+      text-align: center;
+      margin-top: 60px;
+      width: 100%;
+      /* Creditページのフッターと被らないように調整 */
+      margin-bottom: 40px; /* Adjust if needed to push content up more */
+    }
+
+    .back-link a {
+      color: #d5eaff;
+      text-decoration: underline;
+      font-size: 14px;
+    }
+
+    .footer-band {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(10, 10, 40, 0.85);
+      color: #ffffff;
+      text-align: center;
+      padding: 10px 0;
+      font-size: 14px;
+      font-weight: 500;
+      z-index: 100;
+    }
+
+    /* トップに戻るボタンのスタイル (クローゼットページと同じ) */
+    .back-to-top-button {
+      position: fixed;
+      top: 20px; /* Adjust as needed */
+      left: 20px; /* Adjust as needed */
+      z-index: 1000; /* Ensure it's on top */
+      background-color: #7FD6E2; /* MENUボタンと同じ色 */
+      color: #1B1F3B; /* MENUボタンと同じ色 */
+      padding: 12px 16px;
+      cursor: pointer;
+      font-size: 14px;
+      border-radius: 4px;
+      border: none;
+      text-decoration: none; /* リンクの下線を削除 */
+      display: inline-block; /* パディングを適用するために必要 */
+    }
+
+    .back-to-top-button:hover {
+      background-color: #6ac8d5; /* ホバー時の色 */
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back-to-top-button">トップページに戻る</a>
+
+  <div class="container">
+    <h1>クレジット</h1>
+
+    <div class="section">
+      <div class="role">アニメーション</div>
+      <div class="name">
+        あすふぁると様<br>
+        <a class="x-link" href="https://x.com/asufaluto_2" target="_blank">
+          <img src="img/xicon.png" alt="Xロゴ">
+          @asufaluto_2
+        </a>
+      </div>
+      まいこ様<br>
+        <a class="x-link" href="https://x.com/gohan0isi" target="_blank">
+          <img src="img/xicon.png" alt="Xロゴ">
+          @gohan0isi
+        </a>
+    </div>
+
+    <div class="section">
+      <div class="role">ロゴデザイン</div>
+      <div class="name">
+        狼煙様<br>
+        <a class="x-link" href="https://x.com/noroshi_de" target="_blank">
+          <img src="img/xicon.png" alt="Xロゴ">
+          @noroshi_de
+        </a>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="role">メインビジュアル</div>
+      <div class="name">
+        透空様<br>
+        <a class="x-link" href="https://x.com/SuA_01_" target="_blank">
+          <img src="img/xicon.png" alt="Xロゴ">
+          @SuA_01_
+        </a>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="role">衣装</div>
+      <div class="name">
+        飛月様<br>
+        <a class="x-link" href="https://x.com/T0tuki_" target="_blank">
+          <img src="img/xicon.png" alt="Xロゴ">
+          @T0tuki_
+        </a>
+      </div>
+      <div class="name">
+        hono様<br>
+        <a class="x-link" href="https://x.com/Ho_vst" target="_blank">
+          <img src="img/xicon.png" alt="Xロゴ">
+          @Ho_vst
+        </a>
+      </div>
+      <div class="name">
+        ponchan様<br>
+        <a class="x-link" href="https://x.com/PO_N___CHAN" target="_blank">
+          <img src="img/xicon.png" alt="Xロゴ">
+          @PO_N___CHAN
+        </a>
+      </div>
+      <div class="name">
+        りひと。様<br>
+        <a class="x-link" href="https://x.com/ritotarosan__" target="_blank">
+          <img src="img/xicon.png" alt="Xロゴ">
+          @ritotarosan__
+        </a>
+      </div>
+      <div class="name">
+        ﾍﾟｷ<br>
+        <a class="x-link" href="https://x.com/pekky1_3" target="_blank">
+          <img src="img/xicon.png" alt="Xロゴ">
+          @pekky1_3
+        </a>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="role">小物</div>
+      <div class="name">
+        燈紫様<br>
+        <a class="x-link" href="https://x.com/hoshi__0724" target="_blank">
+          <img src="img/xicon.png" alt="Xロゴ">
+          @hoshi__0724
+        </a>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="role">企画・主催・サイト作成</div>
+       <div class="name">
+        ﾍﾟｷ<br>
+        <a class="x-link" href="https://x.com/pekky1_3" target="_blank">
+          <img src="img/xicon.png" alt="Xロゴ">
+          @pekky1_3
+        </a>
+      </div>
+    </div>
+
+    <div class="back-link">
+      <a href="index.html">トップへ戻る</a>
+    </div>
+  </div>
+
+  <div class="footer-band">
+    © 2025 Ars Almal 6th Anniversary Fan Project
+  </div>
+</body>
+</html>

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>アルス・アルマル 6周年記念サイト</title>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      font-family: 'Shippori Mincho', serif;
+      overflow: hidden; /* Prevent scrollbars due to fixed elements */
+    }
+
+    /* 初期ローディングスクリーン */
+    #initial-loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: url('main_visual.jpg') no-repeat center center; /* main_visual.jpgを背景に設定 */
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column; /* テキストを中央に配置するため */
+      color: #fff; /* テキストの色 */
+      font-size: 24px; /* テキストの基本サイズ */
+      text-align: center;
+      opacity: 1; /* 最初は表示 */
+      visibility: visible;
+      transition: opacity 1s ease-out, visibility 1s ease-out, transform 1s ease-out; /* フェードアウトとズームアウト用 */
+      z-index: 10000; /* 最前面に */
+      transform: scale(1); /* 初期スケール */
+    }
+
+    #initial-loading-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(1.2); /* 少し拡大して消える */
+    }
+
+    /* お祝いテキストのスタイル */
+    #anniversary-text {
+      opacity: 0; /* 最初は非表示 */
+      transition: opacity 1s ease-in; /* フェードイン用 */
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* 少し影をつける */
+      font-size: 1.5em; /* テキストサイズを大きく */
+      font-weight: bold; /* 太字 */
+    }
+
+    #initial-loading-screen.fade-in-text #anniversary-text {
+      opacity: 1; /* フェードイン */
+    }
+
+    /* 背景GIFのスタイル */
+    #background1, #background2 {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      z-index: -2;
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+      filter: brightness(0.95) contrast(1.1) saturate(0.8) blur(1px);
+    }
+
+    #background1.active, #background2.active {
+      opacity: 1;
+    }
+
+    #background-filter {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(1.5px);
+    }
+
+    /* MENUボタン */
+    .menu-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      background-color: rgba(255, 255, 255, 0.2); /* 薄い白に変更 */
+      color: #fff; /* 文字色を白に変更して見やすく */
+      padding: 12px 16px;
+      cursor: pointer;
+      font-size: 14px;
+      border-radius: 4px;
+      border: none;
+      transition: background-color 0.3s ease; /* ホバーアニメーション */
+    }
+
+    .menu-button:hover {
+        background-color: rgba(255, 255, 255, 0.4); /* ホバー時にもっと薄い白 */
+    }
+
+    .menu-button::before {
+      content: "≡";
+      font-size: 20px;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+
+    .menu-overlay {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(255, 255, 255, 0.9); /* 薄い白に変更 */
+      backdrop-filter: blur(6px);
+      color: #1B1F3B; /* 文字色を濃い色に戻す */
+      box-sizing: border-box;
+    }
+
+    .menu-overlay.open {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .menu-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+      /* メニューコンテンツがCLOSEボタンと重ならないように下部の余白を追加 */
+      padding-top: 40px; /* 上のpaddingは少し減らしても良いかもしれません */
+      padding-bottom: 80px; /* 下部に十分な余白を追加 */
+    }
+
+    .menu-content a {
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .menu-content .menu-item-en {
+      font-size: 36px;
+      font-weight: bold;
+      color: #1B1F3B;
+    }
+
+    .menu-content .menu-item-ja {
+      font-size: 16px;
+      color: #4a4a4a; /* より見やすい色に調整 */
+      margin-top: 4px;
+    }
+
+    .menu-content a:hover .menu-item-en {
+      text-shadow: 0 0 10px #7FD6E2; /* ホバー時の色を調整 */
+    }
+
+    .menu-close {
+      position: absolute;
+      bottom: 30px; /* 画面下からの距離を調整 */
+      left: 50%; /* 画面左端から中央へ */
+      transform: translateX(-50%); /* X軸方向に中央寄せ */
+      font-size: 24px;
+      color: #1B1F3B; /* 文字色を濃い色に戻す */
+      cursor: pointer;
+      background-color: transparent; /* 背景なし */
+      border: none;
+      padding: 8px 16px; /* クリックしやすくするためにpaddingを調整 */
+      border-radius: 4px; /* 角を丸く */
+      transition: background-color 0.3s ease;
+    }
+
+    .menu-close:hover {
+        background-color: rgba(0, 0, 0, 0.1); /* ホバー時 */
+    }
+
+    .content { /* This class is currently not used in the provided HTML body */
+      position: relative;
+      z-index: 1;
+      color: #fff;
+      text-align: center;
+      top: 35%;
+      padding: 0 20px;
+      text-shadow: 0 0 6px #000;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin: 0 0 20px;
+    }
+
+    p {
+      font-size: 1.5em;
+    }
+
+    .logo-center-bottom {
+      position: fixed;
+      bottom: 70px; /* Adjusted to give space for the footer (approx. footer height + some margin) */
+      left: 50%;
+      transform: translateX(-50%);
+      height: 100px; /* Adjust as needed for logo size */
+      z-index: 100;
+    }
+
+    /* This class is not used in the provided HTML body */
+    .logo-bottom-right {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      height: 100px;
+      z-index: 100;
+    }
+
+    /* Footer Band (Copyright) */
+    .footer-band {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(10, 10, 40, 0.85); /* Dark semi-transparent background */
+      color: #ffffff;
+      text-align: center;
+      padding: 10px 0;
+      font-size: 14px;
+      font-weight: 500;
+      z-index: 100; /* Ensure it's above other content but below menu overlay if it opens */
+    }
+
+    /* Loading Screen for page transitions (ページ遷移時に表示されるもの) */
+    #page-transition-loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: url('main_visual.jpg') no-repeat center center;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0; /* Initially hidden */
+      visibility: hidden; /* Hide from screen readers and interaction */
+      transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+      z-index: 9999; /* Always on top, but below initial-loading-screen */
+    }
+
+    #page-transition-loading-screen.show {
+      opacity: 1;
+      visibility: visible;
+    }
+  </style>
+</head>
+<body onload="startInitialAnimation()">
+  <div id="initial-loading-screen">
+    <div id="anniversary-text">アルス・アルマルさん 活動6周年おめでとうございます！</div>
+  </div>
+
+  <div id="background1"></div>
+  <div id="background2"></div>
+  <div id="background-filter"></div>
+
+  <div class="menu-button" onclick="openMenu()">MENU</div>
+
+  <div class="menu-overlay" id="menuOverlay">
+    <div class="menu-close" onclick="closeMenu()">× CLOSE</div>
+    <div class="menu-content">
+      <a href="closet.html">
+        <div class="menu-item-en">CLOSET</div>
+        <div class="menu-item-ja">衣装一覧</div>
+      </a>
+      <a href="activity.html">
+        <div class="menu-item-en">ACTIVITY</div>
+        <div class="menu-item-ja">活動記録</div>
+      </a>
+      <a href="credit.html">
+        <div class="menu-item-en">CREDIT</div>
+        <div class="menu-item-ja">クレジット</div>
+      </a>
+    </div>
+  </div>
+
+  <img src="6周年記念ロゴ.png" alt="ロゴ" class="logo-center-bottom" />
+
+  <div class="footer-band">
+    © 2025 Ars Almal 6th Anniversary Fan Project
+  </div>
+
+  <div id="page-transition-loading-screen"></div>
+
+  <script>
+    // 背景GIFのリスト
+    const gifs = [
+      'アルス1.gif',
+      'アルス2.gif', 
+      '昼寝.gif',
+    ];
+
+    let currentGifIndex = 0; // 現在表示中のGIFのインデックス
+    let showingFirstBackground = true; // 現在アクティブな背景がbg1かbg2かを判断
+
+    const bg1 = document.getElementById('background1');
+    const bg2 = document.getElementById('background2');
+    const initialLoadingScreen = document.getElementById('initial-loading-screen');
+    const anniversaryText = document.getElementById('anniversary-text');
+    const pageTransitionLoadingScreen = document.getElementById('page-transition-loading-screen');
+
+    let backgroundInterval; // setIntervalのIDを保持する変数
+
+    // GIFの切り替え関数（ランダム再生）
+    function switchBackground() {
+      let nextGifIndex;
+      // 現在のGIFと同じものが選ばれないようにループ
+      do {
+        nextGifIndex = Math.floor(Math.random() * gifs.length);
+      } while (nextGifIndex === currentGifIndex && gifs.length > 1); // GIFが1つしかない場合はこの条件をスキップ
+
+      const nextGifSrc = gifs[nextGifIndex];
+
+      if (showingFirstBackground) {
+        bg2.style.backgroundImage = `url('${nextGifSrc}')`;
+        bg2.classList.add('active');
+        bg1.classList.remove('active');
+      } else {
+        bg1.style.backgroundImage = `url('${nextGifSrc}')`;
+        bg1.classList.add('active');
+        bg2.classList.remove('active');
+      }
+      currentGifIndex = nextGifIndex;
+      showingFirstBackground = !showingFirstBackground;
+    }
+
+    // サイトを開いた時の初期アニメーション
+    function startInitialAnimation() {
+      // 0.5秒後にテキストをフェードイン
+      setTimeout(() => {
+        initialLoadingScreen.classList.add('fade-in-text');
+      }, 500); // 0.5秒後
+
+      // テキストが表示された後、画像とテキストが同時にズームアウトして消える
+      // テキストフェードイン開始から約3秒後に画面が消え始めるように調整
+      setTimeout(() => {
+        initialLoadingScreen.classList.add('hidden'); // ズームアウトとフェードアウト
+
+        // GIF背景の初期表示と切り替え開始
+        // 最初のGIFをランダムに選択して表示
+        currentGifIndex = Math.floor(Math.random() * gifs.length); // 最初のGIFもランダムに
+        bg1.style.backgroundImage = `url('${gifs[currentGifIndex]}')`;
+        bg1.classList.add('active');
+        
+        // 5秒ごとにGIFを切り替えるインターバルを開始
+        backgroundInterval = setInterval(switchBackground, 5000); 
+
+      }, 3500); // テキストフェードイン開始(0.5s) + 3s後 = 3.5秒後
+    }
+
+    function openMenu() {
+      document.getElementById('menuOverlay').classList.add('open');
+    }
+
+    function closeMenu() {
+      document.getElementById('menuOverlay').classList.remove('open');
+    }
+
+    // --- Page Transition Loading Screen Logic ---
+    // Show loading screen when any link is clicked
+    document.addEventListener('DOMContentLoaded', () => {
+        const links = document.querySelectorAll('a[href^="http"]:not([target="_blank"]), a[href^="#"], a[href^="/"], a[href^="."]'); // Exclude external links and anchors
+        links.forEach(link => {
+            link.addEventListener('click', (event) => {
+                // Allow default for external links or if it's an internal link already
+                if (link.hostname === window.location.hostname || !link.hostname) { // Same origin or relative link
+                    event.preventDefault(); // Prevent immediate navigation
+                    pageTransitionLoadingScreen.classList.add('show');
+                    // Delay actual navigation slightly to allow loading screen to appear
+                    setTimeout(() => {
+                        window.location.href = link.href;
+                    }, 500); // Adjust delay as needed (e.g., 500ms for 0.5s transition)
+                }
+            });
+        });
+
+        // Hide loading screen when page loads
+        window.addEventListener('load', () => {
+            pageTransitionLoadingScreen.classList.remove('show');
+        });
+
+        // If navigating back, ensure loading screen is hidden
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted) { // If fetched from cache (back/forward button)
+                pageTransitionLoadingScreen.classList.remove('show');
+            }
+        });
+    });
+    // --- End Page Transition Loading Screen Logic ---
+  </script>
+</body>
+</html>
