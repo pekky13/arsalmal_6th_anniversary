@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <title>クレジット | アルス・アルマル6周年記念</title>
-  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho&display=swap" rel="stylesheet">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Shippori Mincho', serif;
       margin: 0;
       padding: 0;
       color: #fff;
-      /* 背景の調整 */
       background: 
-        linear-gradient(rgba(0, 0, 20, 0.4), rgba(0, 0, 30, 0.4)), /* 既存のグラデーションの透明度を0.6から0.4に調整 */
-        linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), /* 薄い白色のフィルターを追加 (透明度0.1) */
+        linear-gradient(rgba(0, 0, 20, 0.4), rgba(0, 0, 30, 0.4)),
+        linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)),
         url("img/nightsky01.png") no-repeat center center fixed;
       background-size: cover;
       background-attachment: fixed;
@@ -44,6 +44,7 @@
       margin-bottom: 50px;
       text-shadow: 0 0 10px #000;
       width: 100%;
+      font-family: 'Shippori Mincho', serif; 
     }
 
     .section {
@@ -57,6 +58,7 @@
       color: #c7e0ff;
       font-weight: bold;
       margin-bottom: 10px;
+      font-family: 'Shippori Mincho', serif;
     }
 
     .name {
@@ -67,6 +69,7 @@
       flex-direction: column;
       align-items: center;
       gap: 4px;
+      font-family: 'Shippori Mincho', serif;
     }
 
     .x-link {
@@ -89,13 +92,11 @@
       text-decoration: underline;
     }
 
-    /* 既存のback-linkは残しつつ、新しいボタンを追加 */
     .back-link {
       text-align: center;
       margin-top: 60px;
       width: 100%;
-      /* Creditページのフッターと被らないように調整 */
-      margin-bottom: 40px; /* Adjust if needed to push content up more */
+      margin-bottom: 40px;
     }
 
     .back-link a {
@@ -114,34 +115,39 @@
       text-align: center;
       padding: 10px 0;
       font-size: 14px;
-      font-weight: 500;
       z-index: 100;
+      font-family: 'Playfair Display', serif;
+      font-weight: 400 !important;
     }
 
-    /* トップに戻るボタンのスタイル (クローゼットページと同じ) */
+    /* トップに戻るボタンのスタイル */
     .back-to-top-button {
       position: fixed;
-      top: 20px; /* Adjust as needed */
-      left: 20px; /* Adjust as needed */
-      z-index: 1000; /* Ensure it's on top */
-      background-color: #7FD6E2; /* MENUボタンと同じ色 */
-      color: #1B1F3B; /* MENUボタンと同じ色 */
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      background-color: rgba(255, 255, 255, 0.4); /* 背景色をさらに白く */
+      color: #ffffff; /* 文字色を白に変更 */
       padding: 12px 16px;
       cursor: pointer;
       font-size: 14px;
       border-radius: 4px;
       border: none;
-      text-decoration: none; /* リンクの下線を削除 */
-      display: inline-block; /* パディングを適用するために必要 */
+      text-decoration: none;
+      display: inline-block;
+      transition: background-color 0.3s ease;
+      font-family: 'Playfair Display', serif;
+      font-weight: 400 !important;
+      letter-spacing: 1px;
     }
 
     .back-to-top-button:hover {
-      background-color: #6ac8d5; /* ホバー時の色 */
+      background-color: rgba(255, 255, 255, 0.6); /* ホバー時の色もさらに白く */
     }
   </style>
 </head>
 <body>
-  <a href="index.html" class="back-to-top-button">トップページに戻る</a>
+  <a href="index.html" class="back-to-top-button">Back to Toppage</a>
 
   <div class="container">
     <h1>クレジット</h1>
@@ -155,11 +161,13 @@
           @asufaluto_2
         </a>
       </div>
-      まいこ様<br>
+      <div class="name">
+        まいこ様<br>
         <a class="x-link" href="https://x.com/gohan0isi" target="_blank">
           <img src="img/xicon.png" alt="Xロゴ">
           @gohan0isi
         </a>
+      </div>
     </div>
 
     <div class="section">
@@ -252,10 +260,6 @@
           @pekky1_3
         </a>
       </div>
-    </div>
-
-    <div class="back-link">
-      <a href="index.html">トップへ戻る</a>
     </div>
   </div>
 
