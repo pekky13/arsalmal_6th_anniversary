@@ -3,62 +3,86 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>歌ってみた & アーカイブ</title>
+  <title>活動紹介</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    body {
+    html, body {
       margin: 0;
       padding: 0;
-      font-family: "Noto Sans JP", sans-serif; /* 日本語テキストのデフォルトフォント */
+      font-family: "Noto Sans JP", sans-serif;
       background: linear-gradient(to bottom, #cceeff, #aaddff);
       overflow-x: hidden;
+      height: 100vh;
+      overflow-y: hidden; /* 縦スクロール禁止 */
+    }
+
+    .page-header-message {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 900px;
+      text-align: center;
+      color: #1a2b3c;
+      font-family: 'Playfair Display', serif;
+      font-size: 1em;
+      z-index: 10;
     }
 
     .container {
       display: flex;
-      justify-content: center; /* 中央寄せ */
-      align-items: flex-start; /* 上端揃え */
-      padding: 60px 20px 100px;
+      justify-content: center;
+      flex-direction: column;
+      padding: 40px 20px 60px; /* 上下パディングを縮小 */
       position: relative;
       z-index: 1;
-      flex-wrap: wrap; /* 画面幅が狭い場合に折り返す */
-      gap: 40px; /* ボックス間の隙間を拡大 */
-      max-width: 1200px; /* コンテナの最大幅を設定して中央寄せを補助 */
-      margin: 0 auto; /* コンテナ自体を中央寄せ */
+      flex-wrap: wrap;
+      gap: 20px; /* ボックス間の隙間を縮小 */
+      max-width: 1200px;
+      margin: 0 auto;
+      min-height: calc(100vh - 60px); /* フッター高さに合わせて調整 */
+      padding-top: 100px;
+      box-sizing: border-box;
+    }
+    
+    .box-group {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px; /* 隙間を少し縮小 */
+      width: 100%;
     }
 
     .box {
-      background-color: rgba(60, 70, 80, 0.95);
-      padding: 30px; /* パディングを増やしてサイズ感アップ */
+      padding: 20px; /* パディングを縮小 */
       border-radius: 16px;
-      width: 48%; /* 各ボックスの幅を少し広げる */
-      max-width: 550px; /* ボックスの最大幅を拡大 */
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      box-sizing: border-box; /* paddingとborderをwidthに含める */
+      width: 48%;
+      max-width: 550px;
+      box-sizing: border-box;
     }
 
-    /* レスポンシブ対応: 画面幅が狭い場合はボックスを縦に並べる */
-    @media (max-width: 992px) { /* ブレイクポイントを調整 */
+    @media (max-width: 992px) {
       .box {
-        width: 90%; /* 縦に並ぶように幅を広げる */
-        max-width: 600px; /* スマートフォンでの見栄えを考慮 */
+        width: 90%;
+        max-width: 600px;
       }
     }
 
     h2 {
-      color: #fff;
-      font-size: 1.8em; /* フォントサイズを少し拡大 */
+      color: #1a2b3c;
+      font-size: 1.8em;
       text-align: center;
-      margin-bottom: 20px; /* マージンを調整 */
+      margin-bottom: 20px;
       font-family: 'Playfair Display', serif;
-      font-weight: 400 !important; /* 標準の太さに強制変更 */
+      font-weight: 400 !important;
     }
 
     .video-wrapper {
       position: relative;
       width: 100%;
-      padding-bottom: 56.25%; /* 16:9のアスペクト比 (高さ / 幅 = 9 / 16 = 0.5625) */
+      padding-bottom: 50%; /* 高さを少し縮小 */
       height: 0;
       background-color: #ddd;
       border-radius: 12px;
@@ -74,12 +98,109 @@
       border: none;
     }
 
-    /* 背面画像切り替えアニメーション */
+    .social-links-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: -30px; /* 上に詰める */
+      font-family: 'Playfair Display', serif;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+
+    .social-links-title {
+      color: #1a2b3c;
+      font-size: 0.9em; /* 少し小さめ */
+      margin-bottom: 10px; /* マージン縮小 */
+      text-align: center;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+
+    .social-links a {
+      display: block;
+      width: 50px;
+      height: 50px;
+      text-decoration: none;
+      color: #ffffff;
+      transition: transform 0.2s ease-in-out;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .social-links a.no-image {
+      width: auto;
+      height: auto;
+      padding: 5px 10px;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 4px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .social-links a.no-image span {
+      position: static;
+      display: inline;
+      background-color: transparent;
+      opacity: 1;
+      color: #ffffff;
+      font-weight: bold;
+      transition: none;
+    }
+
+    .social-links a.no-image:hover {
+      transform: translateY(-5px);
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    .social-links a:hover {
+      transform: translateY(-5px);
+    }
+
+    .social-links a img {
+      position: relative;
+      top: -1px; /* 画像を少し上に */
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      vertical-align: bottom;
+    }
+
+    .social-links a span {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.9em;
+      font-weight: bold;
+      text-align: center;
+      color: #ffffff;
+      background-color: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      transition: opacity 0.2s ease-in-out;
+    }
+
+    .social-links a:hover span {
+      opacity: 1;
+    }
+
     .background-image {
       position: fixed;
-      bottom: 80px; /* フッター帯の高さ（約60px）を考慮して少し上に移動 */
+      bottom: 80px;
       right: 0;
-      width: 300px; /* 画像の幅を元に戻す */
+      width: 300px;
       height: auto;
       z-index: 2;
       animation: fadeImages 8s infinite alternate;
@@ -92,35 +213,33 @@
       100% { opacity: 1; content: url("背面.png"); }
     }
 
-    /* 小物画像のスタイル */
     .komono-image-1 {
       position: fixed;
-      bottom: 100px; /* フッターとキャラクター画像との間に配置 */
+      bottom: 100px;
       left: 20px;
-      width: 150px; /* サイズ調整 */
+      width: 150px;
       height: auto;
-      z-index: 3; /* 他の要素より手前に */
-      transform: rotate(-10deg); /* 左に少し回転 */
+      z-index: 3;
+      transform: rotate(-10deg);
     }
 
     .komono-image-2 {
       position: fixed;
-      bottom: 50px; /* komono-image-1より少し下 */
-      left: 100px; /* komono-image-1より少し右 */
-      width: 120px; /* サイズ調整 */
+      bottom: 50px;
+      left: 100px;
+      width: 120px;
       height: auto;
       z-index: 3;
-      transform: rotate(15deg); /* 右に少し回転 */
+      transform: rotate(15deg);
     }
 
-    /* トップに戻るボタンのスタイル */
     .back-to-top-button {
       position: fixed;
       top: 20px;
       left: 20px;
       z-index: 1000;
-      background-color: rgba(255, 255, 255, 0.4); /* 背景色をさらに白く */
-      color: #ffffff; /* 文字色を白に変更 */
+      background-color: rgba(255, 255, 255, 0.4);
+      color: #ffffff;
       padding: 12px 16px;
       cursor: pointer;
       font-size: 14px;
@@ -135,10 +254,9 @@
     }
 
     .back-to-top-button:hover {
-      background-color: rgba(255, 255, 255, 0.6); /* ホバー時の色もさらに白く */
+      background-color: rgba(255, 255, 255, 0.6);
     }
-    
-    /* Footer Band (Copyright) */
+
     .footer-band {
       position: fixed;
       bottom: 0;
@@ -151,23 +269,55 @@
       font-size: 14px;
       z-index: 100;
       font-family: 'Playfair Display', serif;
-      font-weight: 400 !important; /* 標準の太さに強制変更 */
+      font-weight: 400 !important;
     }
   </style>
 </head>
 <body>
+  <div class="page-header-message">
+    駆け出しの魔法使い。魔法使いの世界は色々と大変らしく、その息抜きとして配信活動を行っている。
+    <br>活動6周年をお祝いし、活動の一部を本ページにてご紹介。気になる方はリンク先で是非ご視聴ください！
+  </div>
   <div class="container">
     
-    <div class="box">
-      <h2>歌ってみた</h2>
-      <div class="video-wrapper" id="sing-video"></div>
+    <div class="box-group">
+        <div class="box">
+            <h2>⊹₊⋆ ✦. ݁₊ ⊹CoverSong⊹₊⋆ ✦. ݁₊ ⊹</h2>
+            <div class="video-wrapper" id="sing-video"></div>
+        </div>
+
+        
+        <div class="box">
+            <h2>⊹₊⋆ ✦. ݁₊ ⊹Archive⊹₊⋆ ✦. ݁₊ ⊹</h2>
+            <div class="video-wrapper" id="archive-video"></div>
+        </div>
     </div>
 
-    
-    <div class="box">
-      <h2>アーカイブ</h2>
-      <div class="video-wrapper" id="archive-video"></div>
+    <div class="social-links-container">
+      <div class="social-links-title">▼アルス・アルマルさんの情報をもっと見るには▼</div>
+      <div class="social-links">
+        <a href="https://www.youtube.com/@ArsAlmal/streams" target="_blank">
+          <img src="youtube.png" alt="YouTube">
+          <span>YouTube</span>
+        </a>
+        <a href="https://twitter.com/ars_almal" target="_blank">
+          <img src="x.png" alt="X (Twitter)">
+          <span>X (Twitter)</span>
+        </a>
+        <a href="https://twitch.tv/arsalmal" target="_blank">
+          <img src="twitch.png" alt="Twitch">
+          <span>Twitch</span>
+        </a>
+        <a href="https://tiktok.com/@ars_almal" target="_blank">
+          <img src="tiktok.png" alt="TikTok">
+          <span>TikTok</span>
+        </a>
+        <a href="https://www.nijisanji.jp" target="_blank" class="no-image">
+          <span>にじさんじ公式HP</span>
+        </a>
+      </div>
     </div>
+
   </div>
 
   
@@ -192,35 +342,58 @@
       "https://www.youtube.com/embed/EskU0wBaNmA",
       "https://www.youtube.com/embed/fhl5gw1fluE",
       "https://www.youtube.com/embed/CZlECCb5yu0",
-      "https://www.youtube.com/embed/SyZ2TjAmZsM",
-      "https://www.youtube.com/embed/hzLcHNTyqks"
     ];
 
-    // アーカイブ動画（仮）→ YouTube取得不可のため手動URLが必要
+    // アーカイブ動画リスト
     const archiveVideos = [
-      "https://www.youtube.com/live/TE9p8synmmE",
-      "https://www.youtube.com/embed/VIDEO_ID2",
-      "https://www.youtube.com/embed/VIDEO_ID3"
+      "https://www.youtube.com/embed/BjF1wKlfnfY?si=VPKz3BpIDKF6HN-T",
+      "https://www.youtube.com/embed/OVDc8MzhpxI?si=I6iuNbMWrmtXux8h",
+      "https://www.youtube.com/embed/kvxalDAvlto?si=2_7OdSAyP-8u-dlh",
+      "https://www.youtube.com/embed/uZxmSlgjp-w?si=1MGIvO4PGdyjXq8A",
+      "https://www.youtube.com/embed/l7Iv13LkqvE?si=HZSnXrNe5dp3oHgQ",
+      "https://www.youtube.com/embed/1bgfTBHZcu4?si=BOo1aOk-_5riaSEd",
+      "https://www.youtube.com/embed/hW3Lg_txENk?si=_sTk5BcCAoz4POij",
+      "https://www.youtube.com/embed/fycv0l7F0q0?si=7WJQUBaeAFzXV9gg",
+      "https://www.youtube.com/embed/wG_lTaAOn_w?si=amxUH3i7e7ipYJJS",
+      "https://www.youtube.com/embed/M9e7YLdsoWI?si=Dl29v6VHDYfax1M2",
+      "https://www.youtube.com/embed/I6CAFuEidnI?si=gWF2TmRqiD11KfpV",
+      "https://www.youtube.com/embed/D49dXBxc7qg?si=fhRHD5vXUWdNv-17",
+      "https://www.youtube.com/embed/gITQQgU9kho?si=DV0304f6q6Im3hAP",
+      "https://www.youtube.com/embed/kJ8hfzLVOeE?si=WzstrNB6vkEObqho",
+      "https://www.youtube.com/embed/RFOMJf0b5P4?si=b4-_q_THHugF9_83",
+      "https://www.youtube.com/embed/VaPZf3vrV0k?si=al5WEE8EkWYn_JN5",
+      "https://www.youtube.com/embed/DSX6jG_7uYk?si=BankHuiGCF1drFTJ",
+      "https://www.youtube.com/embed/w__gI1uY9Ic?si=cXUOlZ-7-02QWyyZ",
+      "https://www.youtube.com/embed/wwsMhtVnVfQ?si=iBemyZck50NNwQ0C",
+      "https://www.youtube.com/embed/t-mUdd5KBp4?si=h25Hv6NmyMMy4IO4",
+      "https://www.youtube.com/embed/Ogt7DkuTAw0?si=9vU1JfZ5pBlh5aGD",
+      "https://www.youtube.com/embed/YNH8Fumt8rw?si=sxLLPt_gvAPdUYt-",
+      "https://www.youtube.com/embed/EUjQ-IycEU4?si=pxJda2jy18XKavbR",
+      "https://www.youtube.com/embed/tEmUynmed2E?si=qt5-TMJXQn21hEyr"
     ];
+    // 動画埋め込み
+    function embedVideos() {
+      const singWrapper = document.getElementById("sing-video");
+      const archiveWrapper = document.getElementById("archive-video");
 
-    function setRandomVideo(videoList, targetId) {
-      const randomIndex = Math.floor(Math.random() * videoList.length);
-      const iframe = document.createElement('iframe');
-      iframe.src = videoList[randomIndex];
-      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-      iframe.allowFullscreen = true;
-      const target = document.getElementById(targetId);
-      target.innerHTML = "";
-      target.appendChild(iframe);
+      if (singVideos.length > 0) {
+        const iframe = document.createElement("iframe");
+        iframe.src = singVideos[0];
+        iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+        iframe.allowFullscreen = true;
+        singWrapper.appendChild(iframe);
+      }
+
+      if (archiveVideos.length > 0) {
+        const iframe = document.createElement("iframe");
+        iframe.src = archiveVideos[0];
+        iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+        iframe.allowFullscreen = true;
+        archiveWrapper.appendChild(iframe);
+      }
     }
 
-    // 初期表示
-    setRandomVideo(singVideos, "sing-video");
-    setRandomVideo(archiveVideos, "archive-video");
-
-    // 5秒ごとに切り替え
-    setInterval(() => setRandomVideo(singVideos, "sing-video"), 8000);
-    setInterval(() => setRandomVideo(archiveVideos, "archive-video"), 8000);
+    window.onload = embedVideos;
   </script>
 </body>
 </html>
