@@ -46,7 +46,8 @@
     }
 
     .slide img {
-      max-height: 80vh;
+      max-height: 70vh; /* 画像の高さを80vhから70vhに修正し、画像を上へ移動 */
+      width: auto; /* 画像のアスペクト比を維持 */
       border: none;
       box-shadow: none;
     }
@@ -159,9 +160,7 @@
       text-align: center;
       padding: 10px 0;
       font-size: 14px;
-      /* font-weight: 500; ←これは不要なので削除 */
       z-index: 100;
-      /* ここでPlayfair Displayフォントを適用し、太さを標準に */
       font-family: 'Playfair Display', serif; /* 画像の英語フォントに合わせる */
       font-weight: 400 !important; /* 標準の太さに強制変更 */
     }
