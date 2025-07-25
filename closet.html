@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <title>クローゼット</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       padding: 0;
       background: white;
-      font-family: 'Arial', sans-serif;
+      font-family: 'Arial', sans-serif; /* Fallback for general text */
       overflow-x: hidden;
     }
 
@@ -54,18 +55,18 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      background: rgba(255, 255, 255, 0.2); /* 薄い白に変更 */
+      background: rgba(255, 255, 255, 0.2);
       border: none;
       font-size: 3em;
       cursor: pointer;
-      color: #000; /* 文字色を調整 */
+      color: #000;
       z-index: 10;
       padding: 0 0.2em;
-      transition: background-color 0.3s ease; /* ホバーアニメーション */
+      transition: background-color 0.3s ease;
     }
 
     .nav-button:hover {
-      background: rgba(255, 255, 255, 0.4); /* ホバー時にもっと薄い白 */
+      background: rgba(255, 255, 255, 0.4);
     }
 
     #prev {
@@ -90,27 +91,27 @@
       height: 20px;
       border-radius: 50%;
       border: none;
-      background-color: rgba(255, 255, 255, 0.4); /* 薄い白に変更 */
+      background-color: rgba(255, 255, 255, 0.4);
       cursor: pointer;
-      transition: background-color 0.3s ease; /* ホバーアニメーション */
+      transition: background-color 0.3s ease;
     }
 
     .toggle-buttons button.active {
-      background-color: rgba(0, 0, 0, 0.6); /* アクティブ時は濃い色にして見やすく */
+      background-color: rgba(0, 0, 0, 0.6);
     }
     
     .toggle-buttons button:hover {
-        background-color: rgba(255, 255, 255, 0.6); /* ホバー時にもっと薄い白 */
+        background-color: rgba(255, 255, 255, 0.6);
     }
 
     .logo-center-bottom {
       position: fixed;
-      bottom: 5px;
+      bottom: 50px; /* フッターと被らないように調整 */
       left: 50%;
       transform: translateX(-50%);
       height: 80px;
       z-index: 100;
-      pointer-events: none; /* ボタンの邪魔をしないようにする（任意） */
+      pointer-events: none;
     }
 
     .logo-bottom-right { /* This class seems unused in your HTML, keeping for completeness */
@@ -125,23 +126,44 @@
     /* トップに戻るボタンのスタイル */
     .back-to-top-button {
       position: fixed;
-      top: 20px; /* Adjust as needed */
-      left: 20px; /* Adjust as needed */
+      top: 20px;
+      left: 20px;
       z-index: 1000;
-      background-color: rgba(255, 255, 255, 0.2); /* 薄い白に変更 */
-      color: #000; /* 文字色を黒に変更して見やすく */
+      background-color: rgba(255, 255, 255, 0.2);
+      color: #000;
       padding: 12px 16px;
       cursor: pointer;
       font-size: 14px;
       border-radius: 4px;
       border: none;
-      text-decoration: none; /* リンクの下線を削除 */
-      display: inline-block; /* パディングを適用するために必要 */
-      transition: background-color 0.3s ease; /* ホバーアニメーション */
+      text-decoration: none;
+      display: inline-block;
+      transition: background-color 0.3s ease;
+      font-family: 'Playfair Display', serif; /* 画像に合わせたフォント */
+      font-weight: 400 !important; /* 標準の太さに強制変更 */
+      letter-spacing: 1px;
     }
 
     .back-to-top-button:hover {
-      background-color: rgba(255, 255, 255, 0.4); /* ホバー時にもっと薄い白 */
+      background-color: rgba(255, 255, 255, 0.4);
+    }
+    
+    /* Footer Band (Copyright) */
+    .footer-band {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(10, 10, 40, 0.85);
+      color: #ffffff;
+      text-align: center;
+      padding: 10px 0;
+      font-size: 14px;
+      /* font-weight: 500; ←これは不要なので削除 */
+      z-index: 100;
+      /* ここでPlayfair Displayフォントを適用し、太さを標準に */
+      font-family: 'Playfair Display', serif; /* 画像の英語フォントに合わせる */
+      font-weight: 400 !important; /* 標準の太さに強制変更 */
     }
   </style>
 </head>
@@ -191,7 +213,8 @@
       </div>
       
       <div class="slide">
-        <img src="ars_marinwhite.png" alt="マリンワンピース衣装">
+        <img src="marin_white.jpg" alt="マリンワンピース衣装">
+        </div>
       </div>
 
       <div class="slide">
@@ -211,7 +234,11 @@
     <button class="nav-button" id="next" onclick="nextSlide()">&gt;</button>
   </div>
 
-  <a href="index.html" class="back-to-top-button">トップページに戻る</a>
+  <a href="index.html" class="back-to-top-button">Back to Toppage</a>
+
+  <div class="footer-band">
+    © 2025 Ars Almal 6th Anniversary Fan Project
+  </div>
 
   <script>
     const slides = document.querySelectorAll('.slide');
