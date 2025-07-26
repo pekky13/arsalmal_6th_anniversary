@@ -18,27 +18,25 @@
     }
 
     .page-header-message {
-  position: static; /* fixedやabsoluteを外す */
-  width: 90%;
-  max-width: 900px;
-  margin: 20px auto 40px; /* 上下の余白を適宜調整 */
-  text-align: center;
-  color: #1a2b3c;
-  font-family: 'Playfair Display', serif;
-  font-size: 1em;
-  z-index: auto;
-  transform: none;
-  padding: 0;
-}
-
+      position: static; /* fixedやabsoluteを外す */
+      width: 90%;
+      max-width: 900px;
+      margin: 20px auto 40px; /* 上下の余白を適宜調整 */
+      text-align: center;
+      color: #1a2b3c;
+      font-family: 'Playfair Display', serif;
+      font-size: 1em;
+      z-index: auto;
+      transform: none;
+      padding: 0;
+    }
 
     .container {
-  margin-top: 20px; /* ヘッダーの下にスペースを空ける */
-  padding-top: 0; /* もともとあったpadding-topをリセット */
-  /* 他はそのままでOK */
-}
+      margin-top: 20px; /* ヘッダーの下にスペースを空ける */
+      padding-top: 0; /* もともとあったpadding-topをリセット */
+      /* 他はそのままでOK */
+    }
 
-    
     .box-group {
       display: flex;
       justify-content: center;
@@ -188,20 +186,55 @@
       opacity: 1;
     }
 
-    /* --- ここから追加した固定画像のCSS --- */
+    /* --- ここから修正：画像切り替え用に2枚重ねてフェードするCSS --- */
 
-    /* 右下の背景画像 */
-    .background-image {
+    /* 画像を重ねるコンテナ */
+    .background-image-container {
       position: fixed;
       bottom: 40px;    /* フッター上 */
       right: 10px;
       width: 140px;
-      height: auto;
-      animation: fadeImages 8s infinite alternate;
-      z-index: 3;
+      height: 300px;
       pointer-events: none;
       user-select: none;
+      z-index: 3;
+      overflow: visible;
     }
+
+    .background-image-container img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 140px;
+      height: 300px;
+      object-fit: contain;
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    /* 1枚目はフェードイン・アウトを繰り返す */
+    .background-image-container img.image1 {
+      animation: fadeInOut 8s infinite;
+      
+      z-index: 2;
+    }
+
+    /* 2枚目はアニメーションをずらして交互に表示 */
+    .background-image-container img.image2 {
+      animation: fadeInOut 8s infinite;
+      animation-delay: 4s;
+      z-index: 1;
+    }
+
+    @keyframes fadeInOut {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  45% { opacity: 1; }
+  55% { opacity: 0; }
+  100% { opacity: 0; }
+}
 
     /* 左下の小物画像をまとめたコンテナ */
     .komono-container {
@@ -231,23 +264,22 @@
 
     /* スマホサイズ調整 */
     @media (max-width: 768px) {
-      .background-image {
+      .background-image-container {
         width: 80px;
         bottom: 30px;
         right: 8px;
         opacity: 0.7;
       }
-      
-      .social-links a.no-image {
-    margin-bottom: 60px; /* 帯の高さ＋余裕分 */
-    position: relative;
-    z-index: 10; /* 必要なら前面に出す */
-  .social-links-container {
-    margin-bottom: 60px; /* フッター帯の高さ＋余裕をあける */
-    padding-bottom: 10px; /* ちょっと余白 */
-  }
-}
 
+      .social-links a.no-image {
+        margin-bottom: 60px; /* 帯の高さ＋余裕分 */
+        position: relative;
+        z-index: 10; /* 必要なら前面に出す */
+      }
+      .social-links-container {
+        margin-bottom: 60px; /* フッター帯の高さ＋余裕をあける */
+        padding-bottom: 10px; /* ちょっと余白 */
+      }
 
       .komono-container {
         bottom: 30px;
@@ -259,15 +291,6 @@
         width: 60px;
         opacity: 0.7;
       }
-      
-      
-    }
-
-    @keyframes fadeImages {
-      0%   { opacity: 1; content: url("ナナメ.png"); }
-      49%  { opacity: 1; content: url("ナナメ.png"); }
-      50%  { opacity: 0; content: url("背面.png"); }
-      100% { opacity: 1; content: url("背面.png"); }
     }
 
     /* back-to-top-button と footer-band は省略せず元通り */
@@ -319,20 +342,19 @@
   <div class="container">
     
     <div class="box-group">
-        <div class="box">
-            <h2>⊹₊⋆ ✦. ݁₊ ⊹CoverSong⊹₊⋆ ✦. ݁₊ ⊹</h2>
-            <div class="video-wrapper" id="sing-video"></div>
-        </div>
+      <div class="box">
+        <h2>⊹₊⋆ ✦. ݁₊ ⊹CoverSong⊹₊⋆ ✦. ݁₊ ⊹</h2>
+        <div class="video-wrapper" id="sing-video"></div>
+      </div>
 
-        
-        <div class="box">
-            <h2>⊹₊⋆ ✦. ݁₊ ⊹Archive⊹₊⋆ ✦. ݁₊ ⊹</h2>
-            <div class="video-wrapper" id="archive-video"></div>
-        </div>
+      <div class="box">
+        <h2>⊹₊⋆ ✦. ݁₊ ⊹Archive⊹₊⋆ ✦. ݁₊ ⊹</h2>
+        <div class="video-wrapper" id="archive-video"></div>
+      </div>
     </div>
 
     <div class="social-links-container">
-     <div class="social-links-title">▼アルス・アルマルさんの情報をもっと見るには▼</div>
+      <div class="social-links-title">▼アルス・アルマルさんの情報をもっと見るには▼</div>
       <div class="social-links">
         <a href="https://www.youtube.com/@ArsAlmal/streams" target="_blank">
           <img src="youtube.png" alt="YouTube">
@@ -353,17 +375,17 @@
         <a href="https://www.nijisanji.jp" target="_blank" class="no-image">
           <span>にじさんじ公式HP</span>
         </a>
-        
       </div>
-      
     </div>
-
   </div>
 
   <!-- ここが修正：画像は container の外、フッターの上あたりに固定表示 -->
 
-  <!-- 右下にアニメーションする背景画像 -->
-  <img class="background-image" id="bg-image" src="ナナメ.png" alt="" />
+  <!-- 右下にアニメーションする背景画像（2枚重ねて切り替え） -->
+  <div class="background-image-container" aria-hidden="true">
+    <img class="image1" src="ナナメ.png" alt="" />
+    <img class="image2" src="背面.png" alt="" />
+  </div>
 
   <!-- 左下に小物画像群をまとめて固定 -->
   <div class="komono-container" aria-hidden="true">
@@ -438,22 +460,21 @@
     window.onload = embedVideos;
     
     window.addEventListener("scroll", () => {
-  const header = document.querySelector(".page-header-message");
-  const scrollY = window.scrollY;
+      const header = document.querySelector(".page-header-message");
+      const scrollY = window.scrollY;
 
-  if (scrollY < 100) {
-    // 0～100pxの間で徐々に透明化しながら上に移動
-    const opacity = 1 - scrollY / 100;
-    const translateY = -scrollY * 0.5; // 上にゆっくり移動
-    header.style.opacity = opacity;
-    header.style.transform = `translateX(-50%) translateY(${translateY}px)`;
-  } else {
-    // 100px以上で完全に非表示、上に固定（見えなくする）
-    header.style.opacity = 0;
-    header.style.transform = `translateX(-50%) translateY(-50px)`;
-  }
-});
-
+      if (scrollY < 100) {
+        // 0～100pxの間で徐々に透明化しながら上に移動
+        const opacity = 1 - scrollY / 100;
+        const translateY = -scrollY * 0.5; // 上にゆっくり移動
+        header.style.opacity = opacity;
+        header.style.transform = `translateX(-50%) translateY(${translateY}px)`;
+      } else {
+        // 100px以上で完全に非表示、上に固定（見えなくする）
+        header.style.opacity = 0;
+        header.style.transform = `translateX(-50%) translateY(-50px)`;
+      }
+    });
   </script>
 </body>
 </html>
