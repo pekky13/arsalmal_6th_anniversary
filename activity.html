@@ -18,18 +18,23 @@
     }
 
     .page-header-message {
-      position: absolute;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 90%;
-      max-width: 900px;
-      text-align: center;
-      color: #1a2b3c;
-      font-family: 'Playfair Display', serif;
-      font-size: 1em;
-      z-index: 10;
-    }
+  position: fixed; /* fixedに */
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 900px;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.85); /* 背景半透明で文字が見やすく */
+  color: #1a2b3c;
+  font-family: 'Playfair Display', serif;
+  font-size: 1em;
+  text-align: center;
+  z-index: 1001;
+  box-sizing: border-box;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  will-change: transform, opacity;
+}
 
     .container {
       display: flex;
@@ -429,6 +434,24 @@
     }
 
     window.onload = embedVideos;
+    
+    window.addEventListener("scroll", () => {
+  const header = document.querySelector(".page-header-message");
+  const scrollY = window.scrollY;
+
+  if (scrollY < 100) {
+    // 0～100pxの間で徐々に透明化しながら上に移動
+    const opacity = 1 - scrollY / 100;
+    const translateY = -scrollY * 0.5; // 上にゆっくり移動
+    header.style.opacity = opacity;
+    header.style.transform = `translateX(-50%) translateY(${translateY}px)`;
+  } else {
+    // 100px以上で完全に非表示、上に固定（見えなくする）
+    header.style.opacity = 0;
+    header.style.transform = `translateX(-50%) translateY(-50px)`;
+  }
+});
+
   </script>
 </body>
 </html>
